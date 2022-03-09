@@ -1,7 +1,7 @@
 <script setup>
   import { ref } from 'vue'
   import { copyText } from 'vue3-clipboard'
-  import { createBarcode } from '/Users/philjia/Desktop/vue3/scaner/src/firebase'
+  import { createBarcode } from './firebase'
 
   const tempBarcode = ref('')
   const myinput = ref(null)
