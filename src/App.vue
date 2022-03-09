@@ -1,6 +1,7 @@
 <script setup>
   import { ref } from 'vue'
   import { copyText } from 'vue3-clipboard'
+  import { createBarcode } from '/Users/philjia/Desktop/vue3/scaner/src/firebase'
 
   const tempBarcode = ref('')
   const myinput = ref(null)
@@ -9,15 +10,17 @@
 
   const handelKeyEnter = () => {
     trimmedBarcode.value = tempBarcode.value.substr(18,22)
-    tempBarcode.value=''
+    createBarcode (trimmedBarcode.value).then( ()=>{
     copyText (trimmedBarcode.value, undefined, (error, event) => {
       if (error){
         alert ('can not copy')
       } else{
+        tempBarcode.value=''
         myinput.value.focus()
+        barcodes.value.unshift(trimmedBarcode.value)
       }
-    })
-    barcodes.value.unshift(trimmedBarcode.value)
+    })})
+    
   }
 
 </script>
