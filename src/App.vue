@@ -26,13 +26,18 @@
   <div class='flex items-center justify-center min-h-screen from-teal-100 via-teal-300 to-teal-500 bg-gradient-to-br'>
       <div class='w-full max-w-lg px-10 py-8 mx-auto bg-white rounded-lg shadow-xl'>
         <div class='max-w-md mx-auto space-y-6'>
-          <form @submit.prevent>
+          <form
+            @submit.prevent
+            name="barcode"
+            data-netlify="true"
+          >
             <h2 class="text-2xl font-bold ">请扫描二维码</h2>
             <p class="my-4 opacity-70">请扫描二维码，系统会自动复制二维码</p>
             <hr class="my-6">
             <label class="uppercase text-sm font-bold opacity-70">二维码</label>
             <input
               type="text"
+              name="barcode"
               v-model="tempBarcode"
               ref="myinput"
               @keyup.enter="handelKeyEnter"
