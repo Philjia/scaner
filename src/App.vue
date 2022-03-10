@@ -45,7 +45,6 @@
               class="opacity-70"
               v-for="barcode in barcodes "
               :key="barcode.value"> {{ barcode }} </p>
-
           </form>
         </div>
       </div>
