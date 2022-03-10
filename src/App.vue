@@ -1,30 +1,3 @@
-<script setup>
-  import { ref } from 'vue'
-  import { copyText } from 'vue3-clipboard'
-  import { createBarcode } from '/Users/philjia/Desktop/vue3/scaner/src/firebase'
-
-  const tempBarcode = ref('')
-  const myinput = ref(null)
-  const trimmedBarcode = ref('')
-  const barcodes = ref([])
-
-  const handelKeyEnter = () => {
-    trimmedBarcode.value = tempBarcode.value.substr(18,22)
-    createBarcode (trimmedBarcode.value).then( ()=>{
-    copyText (trimmedBarcode.value, undefined, (error, event) => {
-      if (error){
-        alert ('can not copy')
-      } else{
-        tempBarcode.value=''
-        myinput.value.focus()
-        barcodes.value.unshift(trimmedBarcode.value)
-      }
-    })})
-    
-  }
-
-</script>
-
 <template>
   <div class='flex items-center justify-center min-h-screen from-teal-100 via-teal-300 to-teal-500 bg-gradient-to-br'>
       <div class='w-full max-w-lg px-10 py-8 mx-auto bg-white rounded-lg shadow-xl'>
@@ -49,13 +22,53 @@
               class="opacity-70"
               v-for="barcode in barcodes "
               :key="barcode.value"> {{ barcode }} </p>
-
           </form>
+          <button
+            @click="handelClick"
+            class="py-3 px-6 my-2 bg-emerald-500 text-white font-medium rounded hover:bg-emerald-700 cursor-pointer ease-in-out duration-300"
+            type="button">
+            显示 barcodes
+          </button>
         </div>
       </div>
     </div>
 </template>
 
-<style>
+<script setup>
+  import { ref } from 'vue'
+  import { copyText } from 'vue3-clipboard'
+  import { createBarcode, getBarcodes } from './firebase'
 
-</style>
+  const tempBarcode = ref('')
+  const myinput = ref(null)
+  const trimmedBarcode = ref('')
+  const barcodes = ref([])
+  const barcodeDatabase = ref([])
+
+  const handelKeyEnter = () => {
+    trimmedBarcode.value = tempBarcode.value.substr(18,22)
+    createBarcode (trimmedBarcode.value).then( ()=>{
+    copyText (trimmedBarcode.value, undefined, (error, event) => {
+      if (error){
+        alert ('can not copy')
+      } else{
+        tempBarcode.value=''
+        myinput.value.focus()
+        barcodes.value.unshift(trimmedBarcode.value)
+      }
+    })})
+  }
+
+  const handelClick = () => {
+      getBarcodes()
+        .then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            barcodeDatabase.value.unshift({...doc.data()})
+          })
+          console.log(barcodeDatabase.value.barcode)
+        })
+        .catch(err =>{
+          console.log(err)
+        })
+      }
+</script>

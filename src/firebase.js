@@ -5,6 +5,7 @@ import {
   collection,
   addDoc,
   serverTimestamp,
+  getDocs,
 } from 'firebase/firestore';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -25,8 +26,12 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore(firebaseApp);
 
-const colRef = collection(db, 'barcodes');
+export const colRef = collection(db, 'barcodes');
 
 export const createBarcode = (barcode) => {
   return addDoc(colRef, { barcode: barcode, addedTime: serverTimestamp() });
+};
+
+export const getBarcodes = () => {
+  return getDocs(colRef);
 };
