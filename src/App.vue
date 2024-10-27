@@ -8,7 +8,7 @@
   const barcodes = ref([])
 
   const handelKeyEnter = () => {
-    trimmedBarcode.value = tempBarcode.value.substr(18,22)
+    trimmedBarcode.value = tempBarcode.value.substr(18,25)
     copyText (trimmedBarcode.value, undefined, (error, event) => {
       if (error){
         alert ('can not copy')
