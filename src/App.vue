@@ -30,7 +30,7 @@
             name="barcode"
             data-netlify="true"
           >
-            <h2 class="text-2xl font-bold ">请扫描二维码</h2>
+            <h2 class="text-2xl font-bold ">邮局绿色信封</h2>
             <p class="my-4 opacity-70">请扫描二维码，系统会自动复制二维码</p>
             <hr class="my-6">
             <label class="uppercase text-sm font-bold opacity-70">二维码</label>
